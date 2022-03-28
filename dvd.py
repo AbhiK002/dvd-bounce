@@ -1,13 +1,15 @@
 from tkinter import *
 from random import randint
+from keyboard import add_hotkey
 
 
 class App:
-    def __init__(self):
-        self.master = Tk()
+    def __init__(self, master):
+        self.master = master
+        self.user_scr_width = self.master.winfo_screenwidth()
+        self.user_scr_height = self.master.winfo_screenheight()
         self.make_it()
         self.master.withdraw()
-        self.master.mainloop()
 
     def make_it(self, x_add=4, y_add=3):
         root = Toplevel(self.master)
@@ -19,11 +21,10 @@ class App:
         root.geometry(f'{root_width}x{root_height}+{x_pos}+{y_pos}')
         root.overrideredirect(True)
         root.config(bg="black")
-        Label(root, text="DVD", font=('Copperplate Gothic Bold', 72, 'bold'), fg="white", bg="black").pack()
+        Label(root, text="DVD", font=('Copperplate Gothic Bold', 72, 'bold'), fg="yellow", bg="black").pack()
         root.resizable(False, False)
 
         def close():
-            self.master.unbind_all('<Button-3>')
             self.master.unbind_all('<Button-1>')
 
             bob = Toplevel(self.master)
@@ -36,7 +37,7 @@ class App:
             frame2.pack(side='right')
             frame1.pack(side='right')
             Button(frame1, text="Close", command=self.master.destroy).pack(side='right', padx=5)
-            Button(frame2, text="Cancel", command=lambda: [bob.destroy(), self.master.bind_all('<Button-3>', lambda e: close()), self.master.bind_all('<Button-1>', lambda e: self.multiply())]).pack(side='right', padx=5)
+            Button(frame2, text="Cancel", command=lambda: [bob.destroy(), self.master.bind_all('<Button-1>', lambda e: self.multiply())]).pack(side='right', padx=5)
 
         self.master.bind_all('<Button-1>', lambda e: self.multiply())
         self.master.bind_all('<Button-3>', lambda e: close())
@@ -44,20 +45,23 @@ class App:
         def move(x_p, y_p, x_a, y_a):
             x_p += x_a
             y_p += y_a
-            if x_p >= self.master.winfo_screenwidth() - root_width:
-                x_p = self.master.winfo_screenwidth() - root_width
+            if x_p >= self.user_scr_width - root_width:
+                x_p = self.user_scr_width - root_width
                 x_a = 0 - x_a
             elif x_p < 0:
                 x_p = 0
                 x_a = abs(x_a)
-            if y_p >= self.master.winfo_screenheight() - root_height:
-                y_p = self.master.winfo_screenheight() - root_height
+            if y_p >= self.user_scr_height - root_height:
+                y_p = self.user_scr_height - root_height
                 y_a = 0 - y_a
             elif y_p < 0:
                 y_p = 0
                 y_a = abs(y_a)
-            root.geometry(f'+{x_p}+{y_p}')
-            root.after(20, lambda: move(x_p, y_p, x_a, y_a))
+            try:
+                root.geometry(f'+{x_p}+{y_p}')
+            except:
+                pass
+            self.master.after(20, lambda: move(x_p, y_p, x_a, y_a))
 
         move(x_pos, y_pos, x_add, y_add)
 
@@ -66,4 +70,7 @@ class App:
 
 
 if __name__ == '__main__':
-    App()
+    mainapp = Tk()
+    a = App(mainapp)
+    add_hotkey("ctrl+*", lambda: mainapp.destroy())
+    mainapp.mainloop()
