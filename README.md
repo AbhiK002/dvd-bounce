@@ -6,7 +6,7 @@ left click the bouncing window to duplicate it. (no limits)
 
 right click any of the bouncing windows to close the program.
 
-in case it becomes too laggy to right click, failsafe use hotkey:
+in case it becomes too laggy to right click, use failsafe hotkey to stop the program instantly:
 - CTRL + * (or CTRL + 8)
 
 ![Screenshot (2)](https://user-images.githubusercontent.com/68178267/160447288-bb5d5875-813c-4c48-af3f-2a748326c9d6.png)
