@@ -1,5 +1,5 @@
 from tkinter import *
-from random import randint
+from random import randint, choice
 from keyboard import add_hotkey
 
 
@@ -18,10 +18,11 @@ class App:
         root_height = 100
         x_pos = randint(1, root.winfo_screenwidth() - root_width)
         y_pos = randint(1, root.winfo_screenheight() - root_height)
+        color = choice(("red", "yellow", "green", "cyan", "blue", "white", "orange", "purple", "gray"))
         root.geometry(f'{root_width}x{root_height}+{x_pos}+{y_pos}')
         root.overrideredirect(True)
         root.config(bg="black")
-        Label(root, text="DVD", font=('Copperplate Gothic Bold', 72, 'bold'), fg="yellow", bg="black").pack()
+        Label(root, text="DVD", font=('Copperplate Gothic Bold', 72, 'bold'), fg=color, bg="black").pack()
         root.resizable(False, False)
 
         def close():
