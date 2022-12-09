@@ -1,6 +1,8 @@
 # dvd-bounce
 ripoff of the legendary bouncing dvd screensaver
 
+## [Download EXE file](https://github.com/AbhiK002/dvd-bounce/raw/main/dvd.exe)
+
 ### left click the bouncing window to duplicate it. (no limits)
 - every duplicated window will have a random color, speed and direction of movement.
 
